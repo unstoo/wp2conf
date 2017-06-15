@@ -28,20 +28,33 @@ const PATHS = {
 module.exports = {
 
     entry: {
-        index: PATHS.source + '/index.js',
+        index: PATHS.source + '/pages/index/index',
+        blog: PATHS.source  + '/pages/blog/blog',
     },
     output: {        
         path: PATHS.build,
         filename: '[name].js'
     },
     plugins: [
-        new HtmlWebpackPlugin({ title: 'YKWebpack2' })
+        new HtmlWebpackPlugin({ 
+            filename: 'index.html',
+            chunks: ['index'],
+            template: PATHS.source + '/pages/index/index.pug'
+         }),
+        new HtmlWebpackPlugin({ 
+            filename: 'blog.html',
+            chunks: ['blog'],
+            template: PATHS.source + '/pages/blog/blog.pug'
+         })
     ],
 
     module: {
         rules: [
             {
                 test: /\.css$/, use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.pug$/, loader: 'pug-loader', options: { pretty: true }
             }
         ]
     }
