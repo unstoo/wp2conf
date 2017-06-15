@@ -1,3 +1,5 @@
+import './menu.scss'
+
 export default  function createMenu(arr, className) {
 
 
