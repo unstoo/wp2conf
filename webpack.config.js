@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 const merge = require('webpack-merge')
 
@@ -13,13 +14,6 @@ const extractCSS= require('./webpack/css.extract')
 // css-loader --    require(.css) files from wtithin js modules (adds .css modules to the webpack graph)
 // style-loader --  inject .css modules into DOM tree via <style></style>
 
-// extract-text-webpack-plugin --
-// .module.rules.push(
-// { test: /\.css$/, use: ExtractTextPlugin({ 
-//   publicPath:'../' fallback: 'style-loader', use: ['css-loader'] })   }
-// )
-// .plugin.push(  new ExtractTextPlugin('./css/[name].css')   )
-
 
 // html-webpack-plugin --
 // The plugin will generate an HTML5 file for you 
@@ -27,7 +21,6 @@ const extractCSS= require('./webpack/css.extract')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
-const webpack = require('webpack')
 
 
 const PATHS = {
@@ -59,6 +52,10 @@ const common = merge([
          }),
          new webpack.optimize.CommonsChunkPlugin({
             name: 'common'
+         }),
+         new webpack.ProvidePlugin({
+             $: jquery,
+             jQuuery: jquery
          })
       ]
     },
